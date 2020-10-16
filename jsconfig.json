@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "baseUrl": "./",
+      "paths": {
+          "@/*": ["src/*"]
+      }
+    },
+    "exclude": ["node_modules", "dist"]
+  }
+
+// compilerOptions : 解析选项
+// baseUrl: 从哪开始
+// paths :找谁 找@/

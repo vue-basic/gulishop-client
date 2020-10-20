@@ -8,7 +8,8 @@
                         <p>尚品汇欢迎您！</p>
                         <p>
                             <span>请</span>
-                            <router-link to="/login">登录</router-link>
+                            <router-link :to="{path:'/login'}">登录</router-link>
+                            <!-- <router-link to="/login">登录</router-link> -->
                             <!-- <a href="###">登录</a>
                             <a href="###" class="register">免费注册</a> -->
                             <router-link class="register" to="/register">免费注册</router-link>
@@ -39,7 +40,7 @@
                 </h1>
                 <div class="searchArea">
                     <form action="###" class="searchForm">
-                        <input type="text" id="autocomplete" class="input-error input-xxlarge" />
+                        <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword"/>
                         <button class="sui-btn btn-xlarge btn-danger" type="button" @click="toSearch">搜索</button>
                     </form>
                 </div>
@@ -50,9 +51,42 @@
 <script>
 export default {
     name:'Header',
+    data() {
+        return {
+            keyword:''
+        }
+    },
     methods:{
         toSearch(){
-            this.$router.push('/search')//push(可以写字符串/对象)
+            // this.$router.push('/search')//push(可以写字符串/对象)
+            // 1.字符串写法
+            // 2.对象写法
+
+            // this.$router.push({path:'/search/',params:{keyword:this.keyword}})
+            // this.$router.push({name:'search',params:{keyword:this.keyword}})
+
+            // 当我一点击,它去push的时候,把keyword通过params参数带过去
+
+            // params参数能不能和path配合?
+            // 不能配合,如果要配合只能和name配合
+
+
+            // 字符串形式
+            // this.$router.push('/search/'+this.keyword)
+            // 自己知道keyword是参数,需要在router里边接收
+
+            // 如果只传query参数可以和path配合
+
+            // 3.
+            let location ={
+                name:'search',
+                params:{keyword:this.keyword || undefined},
+                query:{keyword2:this.keyword.toUpperCase()}
+            };
+            // this.$router.push(location).catch(()=>{})
+            // this.$router.push(location,()=>{},()=>{})
+            this.$router.push(location)
+
         }
     }
 }

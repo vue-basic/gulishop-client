@@ -1,12 +1,14 @@
 <template>
     <div>
-        Search
+       <TypeNav></TypeNav>
     </div>
 </template>
 
 <script>
 export default {
-    name:"search"
+    name:"search",
+    // props:['keyword','name']
+    props:['keyword','keyword2']
 }
 </script>
 

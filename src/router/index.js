@@ -54,7 +54,7 @@ export default new VueRouter({
             component:Home
         },
         {
-            path:'/search/:keyword?',
+            path:'/search/:keyword?',//?是可传可不传
             component:Search,
             name:'search',
             // props:true

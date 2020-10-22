@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name:"search",
+    name:"Search",
     // props:['keyword','name']
     props:['keyword','keyword2']
 }

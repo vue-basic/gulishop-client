@@ -65,15 +65,15 @@ export default new VueRouter({
             // props:{name:'zhaoliying'}// ---一般情况下没有任何意义
 
             // 3.函数写法
-            props(route){
-                // route是接受完参数的路由对象
-                return {
-                    // 自己映射
-                    // 把路由对象接收到的参数,无论什么参数,自己手动映射为路由组件的属性
-                    keyword:route.params.keyword, 
-                    keyword2:route.query.keyword2
-                }
-            }
+            // props(route){
+            //     // route是接受完参数的路由对象
+            //     return { 
+            //         // 自己映射
+            //         // 把路由对象接收到的参数,无论什么参数,自己手动映射为路由组件的属性
+            //         keyword:route.params.keyword, 
+            //         keyword2:route.query.keyword2
+            //     }
+            // }
            
         },
         {

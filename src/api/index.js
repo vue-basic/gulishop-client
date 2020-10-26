@@ -4,6 +4,7 @@
 // 一旦写接口请求函数,必然要用到axios  用封装好的
 
 import Ajax from '@/ajax/Ajax'
+import mockAjax from '@/ajax/mockAjax' 
 
 // 1.请求三级分类列表数据函数
 /**
@@ -25,3 +26,18 @@ export const reqCategoryList = () => {
 // 1.直接调这个暴露出来的函数  需要在main.js中加载一下 因为模块不会自己运行
 // reqCategoryList()
 // 2.在main.js中调暴露出来的这个函数
+
+// 请求获取mock 的banner 和 floor 数据接口
+export const reqBannerList = () => {
+    return mockAjax({
+        url:'/banner',
+        method:'get',
+    })
+}
+
+export const reqFloorList = () => {
+    return mockAjax({
+        url:'/floor',
+        method:'get'
+    })
+}

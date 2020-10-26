@@ -12,6 +12,7 @@ import router from '@/router'
  * reqCategoryList()
  */
 
+ import '@/mock/mockServer' //运行 这个文件 让mock可以注册上接口
 
 import store from '@/store'
 
@@ -21,8 +22,10 @@ Vue.config.productionTip = false
 // SPA 单页面应用  main.js 是首先要加载的入口
 
 import TypeNav from '@/components/TypeNav'
+import SliderLoop from '@/components/SliderLoop'
 
 Vue.component('TypeNav',TypeNav)//全局注册
+Vue.component('SliderLoop',SliderLoop)
 
 new Vue({
   el:'#app',

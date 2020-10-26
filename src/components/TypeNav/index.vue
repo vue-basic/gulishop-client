@@ -3,10 +3,11 @@
         <div class="type-nav">
             <div class="container">
 
-                <div @mouseleave="currentIndex = -1">
+                <div @mouseleave="moveOutDiv" @mouseenter="moveInDiv">
                     <h2 class="all">全部商品分类</h2>
-                      <div class="sort">
-                    <div class="all-sort-list2" @click="toSearch">
+                    <transition name="show">
+                             <div class="sort" v-show="isShow">
+                            <div class="all-sort-list2" @click="toSearch">
                         <!-- 
                             添加类
                             强制添加类：
@@ -64,6 +65,8 @@
                         </div>
                     </div>
                 </div>
+                    </transition>
+                 
                 </div>
                 
                 <nav class="nav">
@@ -89,20 +92,27 @@ export default {
     name:"TypeNav",
     data() {
         return {
-            currentIndex:-1
+            currentIndex:-1,
+            isShow:true
         }
     },
     mounted(){
         // 挂载完成后(模板挂载完成后,模板变成真正的dom后)
-        this.getCategoryList()
+
+        // 为了判断TypeNav组件是在home页还是在search页  如果是search页那么我们要首先隐藏三级分类列表  
+        if(this.$route.path !== '/home'){
+            this.isShow = false
+        }
+
+        // this.getCategoryList()  //放在这里会发送多次请求 而请求的数据是一样的 (home和search都会发)  挪到App当中发请求  同时把发请求的函数拿过去
     },
     methods:{
-        getCategoryList(){
-            // 用户在触发相应的actions去发请求拿数据
-            this.$store.dispatch('getCategoryList') //名字刚好和函数名一样
-            // dispatch触发actions 
+        // getCategoryList(){
+        //     // 用户在触发相应的actions去发请求拿数据
+        //     this.$store.dispatch('getCategoryList') //名字刚好和函数名一样
+        //     // dispatch触发actions 
             
-        },
+        // },
 
         // 这里面可以获取Vuex当中的mutations和actions方法
 
@@ -121,6 +131,22 @@ export default {
             console.log(index)
             this.currentIndex = index
         }, 100,{'trailing': false}),
+
+        // 移入到全部商品分类外部的div  显示三级分类列表
+        moveInDiv(){
+            this.isShow = true
+        },
+
+        // 移出全部商品分类的div , 隐藏search三级分类列表,home当中隐藏二三级分类
+        moveOutDiv(){
+            // 隐藏二三级分类
+            this.currentIndex = -1 
+            
+           // 为了判断TypeNav组件是在home页还是在search页  如果是search页那么我们要首先隐藏三级分类列表
+            if(this.$route.path !== '/home'){
+                this.isShow = false//隐藏search的全部三级分类
+            }
+        },
 
         toSearch(event){
             // event：事件对象  写了形参就拿到了事件对象  没写就相当于没接收 并不是说没传
@@ -157,6 +183,12 @@ export default {
 
                 // 把query参数放到location当中
                 location.query = query
+
+                // 判断当前路由当中是不是有params参数 , 有就带上   有的话说明先点击的类别 后点击的搜索按钮
+                let {params} = this.$route  
+                if(params){
+                    location.params = params
+                }
 
                 this.$router.push(location)
             }
@@ -301,8 +333,22 @@ export default {
                 width: 210px;
                 height: 461px;
                 position: absolute;
-                background: #fafafa;
+                background: skyblue;
                 z-index: 999;
+
+                 &.show-enter{
+                    opacity: 0;
+                    height: 0;
+                }
+
+                &.show-enter-active{
+                    transition: all 3s;
+                }
+
+                &.show-enter-to{
+                    opacity: 1;
+                    height: 461px;
+                }
 
                 .all-sort-list2 {
                     .item {

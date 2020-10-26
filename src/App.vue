@@ -16,6 +16,19 @@ export default {
   components:{
     Header,
     Footer
+  },
+  mounted() {
+    this.getCategoryList() 
+  },
+  methods:{
+    // 函数定义也要定义在这里
+
+        getCategoryList(){
+            // 用户在触发相应的actions去发请求拿数据
+            this.$store.dispatch('getCategoryList') //名字刚好和函数名一样
+            // dispatch触发actions 
+            
+        },
   }
 }
 </script>
